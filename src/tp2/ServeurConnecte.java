@@ -74,9 +74,10 @@ class ServeurConnecte extends Thread
 	  
 		baos.write(buffer, 0 , in.read(buffer));
 	
-	   
+		   System.out.println("------------byte file"); 
+
 	   byte result[] = baos.toByteArray();
-	   FileOutputStream fs = new FileOutputStream(new File("C:\\Users\\hp\\Downloads\\received.png"));
+	   FileOutputStream fs = new FileOutputStream(new File("C:\\Users\\hp\\Downloads\\received.pdf"));
 	   BufferedOutputStream  bs = new BufferedOutputStream(fs);
 	    bs.write(buffer);
 	    bs.close();

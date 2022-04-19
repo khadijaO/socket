@@ -1,5 +1,9 @@
 package tp2;
 
+import java.awt.Dimension;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,6 +13,8 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.Scanner;
+
+import javax.imageio.ImageIO;
 
 public class ClientConnecte {
 
@@ -35,19 +41,35 @@ Socket sock=null;
 	      
 	  }
 	  
+	  public void Screen(){
+		  try {
+		        Robot robot = new Robot();
+
+		        // Capture screen from the top left in 200 by 200 pixel size.
+		        BufferedImage bufferedImage = robot.createScreenCapture(
+		                new Rectangle(new Dimension(1400, 740)));
+
+		        // The captured image will the written into a file called
+		        // screenshot.png
+		        File imageFile = new File("C:\\Users\\hp\\Downloads\\screenshot.png");
+		        ImageIO.write(bufferedImage, "png",  imageFile);
+		        envoiFileByte("C:\\Users\\hp\\Downloads\\screenshot.png");
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
+		  }
 	  public void envoiFileByte(String path){
 		  	 try{
-           FileInputStream fs=new FileInputStream(path);
-           byte b[]=new byte[2002];
-           fs.read(b,0,b.length);
-            PrintStream pr=new PrintStream(sock.getOutputStream());
-            pr.write(b, 0, b.length);
-             }
+        FileInputStream fs=new FileInputStream(path);
+        byte b[]=new byte[1000000];
+        fs.read(b,0,b.length);
+         PrintStream pr=new PrintStream(sock.getOutputStream());
+         pr.write(b, 0, b.length);
+          }
 		  	 catch(IOException e){
 		  	 }
 		      
 		  }
-	  
 public void envoiFile(String path) throws IOException{
 	String data;
 	String s = "";
@@ -91,8 +113,8 @@ public void envoiFile(String path) throws IOException{
 	  { 
 	  ClientConnecte client=new ClientConnecte();
 	  client.connexion("127.0.0.1", 10000);
-	  client.envoiFileByte("C:\\Users\\hp\\Downloads\\qr.png");
-
+	  client.envoiFileByte("C:\\Users\\hp\\Downloads\\Conception.pdf");
+//client.Screen();
 //	  client.recevoir();
 	  client.fermer();
 	  }
